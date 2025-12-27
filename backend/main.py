@@ -5,16 +5,15 @@ import os
 import tempfile
 import ctranslate2
 import transformers
-# MoviePy 2.x+ uses simplified imports
+
 from moviepy import VideoFileClip 
 from streamlit_mic_recorder import mic_recorder
 from faster_whisper import WhisperModel
 import edge_tts
 
-# --- CONFIGURATION ---
+
 st.set_page_config(page_title="Indic Universal Translator", layout="wide")
 
-# --- 1. MULTILINGUAL DICTIONARY (12+ Languages) ---
 INDIC_LANGS = {
     "English": ("eng_Latn", "en-IN-NeerjaNeural"),
     "Hindi": ("hin_Deva", "hi-IN-SwaraNeural"),
@@ -31,20 +30,24 @@ INDIC_LANGS = {
     "Sanskrit": ("san_Deva", "hi-IN-SwaraNeural"),
 }
 
-# --- 2. MODEL LOADING & CONVERSION ---
 NLLB_SOURCE = "facebook/nllb-200-distilled-600M"
 NLLB_CT2_DIR = "nllb-200-ct2-int8"
 
 @st.cache_resource
 def load_engines():
-    # STT: Faster-Whisper
+    # 1. STT: Faster-Whisper
     stt = WhisperModel("tiny", device="cpu", compute_type="int8")
     
-    # MT: NLLB (Auto-convert if needed)
+    # 2. MT: NLLB (Auto-convert if needed)
     if not os.path.exists(NLLB_CT2_DIR):
         with st.spinner("Optimizing Models for Indian Languages..."):
-            converter = ctranslate2.converters.TransformersConverter(NLLB_SOURCE)
-            converter.convert(NLLB_CT2_DIR, quantization="int8")
+            # Use 'load_as_float16' to avoid the 'torch_dtype' warning
+            converter = ctranslate2.converters.TransformersConverter(
+                NLLB_SOURCE,
+                load_as_float16=True  # This replaces the need for manual dtype inside the loader
+            )
+            # The 'quantization' parameter goes here in the convert method
+            converter.convert(NLLB_CT2_DIR, quantization="int8", force=True)
             
     translator = ctranslate2.Translator(NLLB_CT2_DIR, device="cpu")
     tokenizer = transformers.AutoTokenizer.from_pretrained(NLLB_SOURCE)
