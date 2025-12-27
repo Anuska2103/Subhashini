@@ -1,10 +1,14 @@
 import ctranslate2
 import transformers
+import warnings
 
 class TranslatorEngine:
     def __init__(self, model_path="nllb-200-distilled-600M-int8"):
         self.translator = ctranslate2.Translator(model_path, device="cpu")
-        self.tokenizer = transformers.AutoTokenizer.from_pretrained("facebook/nllb-200-distilled-600M")
+        # Suppress torch_dtype deprecation warning from model config
+        with warnings.catch_warnings():
+            warnings.filterwarnings("ignore", message=".*torch_dtype.*")
+            self.tokenizer = transformers.AutoTokenizer.from_pretrained("facebook/nllb-200-distilled-600M")
 
     def translate(self, text, src_lang="eng_Latn", tgt_lang="hin_Deva"):
         if not text: return ""
