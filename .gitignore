@@ -1,0 +1,80 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+*.egg
+*.egg-info/
+dist/
+build/
+*.whl
+
+# Virtual Environments
+backend/venv/
+backend/env
+backend/ENV/
+.venv/
+
+# IDE & Editors
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+
+# Streamlit
+.streamlit/
+.streamlit/secrets.toml
+
+# Models & Cache (Large files - don't commit)
+backend/nllb-200-ct2-int8/
+*.pt
+*.bin
+*.onnx
+*.pth
+models/
+checkpoints/
+
+# Hugging Face Cache
+.cache/
+huggingface/
+
+# Audio/Video Processing
+backend/outputs/
+temp/
+tmp/
+*.wav
+*.mp3
+*.mp4
+*.avi
+*.mov
+*.flv
+*.mkv
+
+# Logs
+*.log
+logs/
+
+# OS Files
+Thumbs.db
+Desktop.ini
+.DS_Store
+
+# Environment Variables
+.env
+.env.local
+
+# Jupyter Notebooks
+.ipynb_checkpoints/
+*.ipynb
+
+# Testing
+.pytest_cache/
+.coverage
+htmlcov/
+
+# Temporary files
+*.tmp
+*.temp
+~*
