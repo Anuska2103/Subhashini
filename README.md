@@ -6,7 +6,7 @@ An end-to-end multimodal AI platform designed to break language barriers by prov
 
 ## 🚀 Features
 
-- **🎙️ Real-time Voice Translation**: Record your voice, transcribe it instantly, translate it, and hear the results in a natural-sounding target language voice.
+- **🎙️ Real-time Voice Translation**: Record your voice, transcribe it instantly, translate it, and hear the results in any natural-sounding target indian language voice.
 - **🎥 Video Translation**: Upload `.mp4` or `.mov` files to extract audio, translate speech content, and generate a translated voiceover.
 - **🇮🇳 13 Supported Languages**: Includes English, Hindi, Bengali, Marathi, Tamil, Telugu, Gujarati, Kannada, Malayalam, Punjabi, Urdu, Assamese, and Sanskrit.
 - **⚡ Optimized AI Models**: Uses quantized models (INT8) for fast inference on standard CPUs.
